@@ -10,37 +10,37 @@ export default function Statistics() {
           <Divider height="120" width="4" bg="#A09D9D" />
           <Stack className={"static-box"}>
             <Box>
-              <img src="/img/adventure.jpg" alt="" className={"static-pic"} />
+              <img src="/icons/1.svg" alt="" className={"static-pic"} />
             </Box>
-            <Box className={"static-text"}>Adventure</Box>
+            <Box className={"static-text"}>Books</Box>
           </Stack>
           <Divider height="120" width="4" bg="#A09D9D" />
           <Stack className={"static-box"}>
             <Box>
-              <img src="/img/children.jpg" alt="" className={"static-pic"} />
+              <img src="/icons/2.svg" alt="" className={"static-pic"} />
             </Box>
-            <Box className={"static-text"}>Children</Box>
+            <Box className={"static-text"}>BookStore</Box>
           </Stack>
           <Divider height="120" width="4" bg="#A09D9D" />
           <Stack className={"static-box"}>
             <Box>
-              <img src="/img/history.jpeg" alt="" className={"static-pic"} />
+              <img src="/icons/3.svg" alt="" className={"static-pic"} />
             </Box>
-            <Box className={"static-text"}>Historical</Box>
+            <Box className={"static-text"}>BookDoor</Box>
           </Stack>
           <Divider height="120" width="4" bg="#A09D9D" />
           <Stack className={"static-box"}>
             <Box>
-              <img src="/img/fantasy.webp" alt="" className={"static-pic"} />
+              <img src="/icons/4.svg" alt="" className={"static-pic"} />
             </Box>
-            <Box className={"static-text"}>Fantasy</Box>
+            <Box className={"static-text"}>Library</Box>
           </Stack>
           <Divider height="120" width="4" bg="#A09D9D" />
           <Stack className={"static-box"}>
             <Box>
-              <img src="/img/self.jpeg" alt="" className={"static-pic"} />
+              <img src="/icons/5.svg" alt="" className={"static-pic"} />
             </Box>
-            <Box className={"static-text"}>Self Help</Box>
+            <Box className={"static-text"}>Flaprise</Box>
           </Stack>
           <Divider height="120" width="4" bg="#A09D9D" />
         </Stack>

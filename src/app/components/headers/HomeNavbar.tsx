@@ -14,6 +14,8 @@ import { CartItem } from "../../../lib/types/search";
 import { useGlobals } from "../../hooks/useGlobals";
 import { serverApi } from "../../../lib/config";
 import { Logout } from "@mui/icons-material";
+import SearchIcon from "@mui/icons-material/Search";
+import Typography from "@mui/joy/Typography";
 
 interface HomeNavbarPorps {
   cartItems: CartItem[];
@@ -53,48 +55,44 @@ export default function HomeNavbar(props: HomeNavbarPorps) {
         <Stack className={"menu"}>
           <Box>
             <NavLink to={"/"}>
-              <img className={"brand-logo"} src="/icons/logo.svg" />
+              <img className={"brand-logo"} src="/icons/booksaw.svg" />
             </NavLink>
           </Box>
-          <Stack className={"links"}>
-            <Box className={"hover-line"}>
-              <NavLink to="/" activeClassName={"underline"}>
-                Home
-              </NavLink>
-            </Box>
-            <Box className={"hover-line"}>
-              <NavLink to="/products" activeClassName={"underline"}>
-                Products
-              </NavLink>
-            </Box>
-            {authMember ? (
+          <Stack>
+            <Stack className={"links"}>
               <Box className={"hover-line"}>
-                <NavLink to="/orders" activeClassName={"underline"}>
-                  Orders
+                <NavLink to="/" activeClassName={"underline"}>
+                  Home
                 </NavLink>
               </Box>
-            ) : null}
-            {authMember ? (
               <Box className={"hover-line"}>
-                <NavLink to="/member-page" activeClassName={"underline"}>
-                  My Page
+                <NavLink to="/products" activeClassName={"underline"}>
+                  Products
                 </NavLink>
               </Box>
-            ) : null}
-            <Box className={"hover-line"}>
-              <NavLink to="/help" activeClassName={"underline"}>
-                Help
-              </NavLink>
-            </Box>
+              {authMember ? (
+                <Box className={"hover-line"}>
+                  <NavLink to="/orders" activeClassName={"underline"}>
+                    Orders
+                  </NavLink>
+                </Box>
+              ) : null}
+              {authMember ? (
+                <Box className={"hover-line"}>
+                  <NavLink to="/member-page" activeClassName={"underline"}>
+                    My Page
+                  </NavLink>
+                </Box>
+              ) : null}
+              <Box className={"hover-line"}>
+                <NavLink to="/help" activeClassName={"underline"}>
+                  Help
+                </NavLink>
+              </Box>
+            </Stack>
           </Stack>
+
           <Stack className={"link-basket"}>
-            <NavLink to="/products" activeClassName={"underline"}>
-              <input
-                type="text"
-                placeholder="Get Your Book"
-                name="productName"
-              />
-            </NavLink>
             {/* BASKET */}
             <Basket
               cartItems={cartItems}

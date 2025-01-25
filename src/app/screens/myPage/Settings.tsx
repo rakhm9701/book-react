@@ -99,6 +99,7 @@ export function Settings() {
 
   return (
     <Box className={"settings"}>
+      <Box className={"title"}>Update Page</Box>
       <Box className={"member-media-frame"}>
         <img src={memberImage} className={"mb-image"} />
         <div className={"media-change-box"}>

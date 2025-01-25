@@ -44,7 +44,7 @@ export default function Children() {
                           justifyContent={"space-between"}
                         >
                           <Typography textColor="neutral.300">
-                            $3.99 old price
+                            $5.99 old price
                           </Typography>
                           <Typography textColor="neutral.300">
                             from $3.99

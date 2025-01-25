@@ -7,7 +7,9 @@ import { Settings } from "./Settings";
 import { useHistory } from "react-router-dom";
 import { useGlobals } from "../../hooks/useGlobals";
 import { MemberType } from "../../../lib/enums/member.enum";
-import "../../../css/userPage.css";
+import "../../../css/myPage.css";
+import { Atricles } from "./Articles";
+
 
 // UserPage function
 export default function UserPage() {
@@ -24,6 +26,8 @@ export default function UserPage() {
               <Box className={"menu-name"}>Modify Member Details</Box>
               <Box className={"menu-content"}>
                 <Settings />
+               
+                <Atricles />
               </Box>
             </Box>
           </Stack>

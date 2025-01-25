@@ -7,7 +7,8 @@ const Footers = styled.div`
   width: 100%;
   height: 590px;
   display: flex;
-  background: #343434;
+
+  background: rgb(229, 229, 229);
   background-size: cover;
 `;
 
@@ -20,12 +21,13 @@ export default function Footer() {
         <Stack flexDirection={"row"} sx={{ mt: "94px" }}>
           <Stack flexDirection={"column"} style={{ width: "340px" }}>
             <Box>
-              <img width={"100px"} src={"/icons/burak.svg"} />
+              <img width={"100px"} src={"/icons/booksaw.svg"} />
             </Box>
             <Box className={"foot-desc-txt"}>
-              Focusing on the gourmet Turkish breakfast as well as the youth
-              society, CZN Burak Gurme aims to bring Turkish cuisine back. CZN
-              Burak Gurme creates an illusion with its cuisine.
+              THE BOOK DISCUSSES THE CHANGES IN SOCIETY AND THE WAY YOUNG PEOPLE
+              ADAPT TO MODERN DEMANDS. IT HIGHLIGHTS HOW TO NAVIGATE SOCIAL AND
+              CULTURAL CHANGES AND THE FACTORS NECESSARY FOR THE GROWTH OF THE
+              NEW GENERATION.
             </Box>
             <Box className="sns-context">
               <img src={"/icons/facebook.svg"} />
@@ -37,18 +39,42 @@ export default function Footer() {
           <Stack sx={{ ml: "288px" }} flexDirection={"row"}>
             <Stack>
               <Box>
-                <Box className={"foot-category-title"}>Bo'limlar</Box>
+                <Box className={"foot-category-title"}>CATEGORIES</Box>
                 <Box className={"foot-category-link"}>
-                  <Link to="/">Home</Link>
-                  <Link to="/products">Products</Link>
-                  {authMember && <Link to="/orders">Orders</Link>}
-                  <Link to="/help">Help</Link>
+                  <Link to="/">HOME</Link>
+                  <Link to="/products">PRODUCTS</Link>
+                  {authMember && <Link to="/orders">ORDERS</Link>}
+                  <Link to="/help">HELP</Link>
                 </Box>
               </Box>
             </Stack>
             <Stack sx={{ ml: "100px" }}>
               <Box>
-                <Box className={"foot-category-title"}>Find us</Box>
+                <Box className={"foot-category-title"}>HELP</Box>
+                <Box
+                  flexDirection={"column"}
+                  sx={{ mt: "20px" }}
+                  className={"foot-category-link"}
+                  justifyContent={"space-between"}
+                >
+                  <Box flexDirection={"row"} className={"find-us"}>
+                    <div>HELP CENTER</div>
+                  </Box>
+                  <Box className={"find-us"}>
+                    <div>REPORT A PROBLEM</div>
+                  </Box>
+                  <Box className={"find-us"}>
+                    <div>SUGGESTING ERRORS</div>
+                  </Box>
+                  <Box className={"find-us"}>
+                    <div>CONTACT US</div>
+                  </Box>
+                </Box>
+              </Box>
+            </Stack>
+            <Stack sx={{ ml: "100px" }}>
+              <Box>
+                <Box className={"foot-category-title"}>FIND US</Box>
                 <Box
                   flexDirection={"column"}
                   sx={{ mt: "20px" }}
@@ -57,19 +83,19 @@ export default function Footer() {
                 >
                   <Box flexDirection={"row"} className={"find-us"}>
                     <span>L.</span>
-                    <div>Downtown, Dubai</div>
+                    <div>DOWNTOWN, DAEJEON</div>
                   </Box>
                   <Box className={"find-us"}>
                     <span>P.</span>
-                    <div>+971 4 554 7777</div>
+                    <div>+8210 8282 9898</div>
                   </Box>
                   <Box className={"find-us"}>
                     <span>E.</span>
-                    <div>devexuz@gmail.com</div>
+                    <div>BOOK@GMAIL.COM</div>
                   </Box>
                   <Box className={"find-us"}>
                     <span>H.</span>
-                    <div>Visit 24 hours</div>
+                    <div>VISIT 24 HOURS</div>
                   </Box>
                 </Box>
               </Box>
@@ -81,7 +107,7 @@ export default function Footer() {
           sx={{ mt: "80px" }}
         ></Stack>
         <Stack className={"copyright-txt"}>
-          © Copyright Devex Global, All rights reserved.
+          © COPYRIGHTS DEVEX GLOBAL, ALL RIGHTS RESERVED.
         </Stack>
       </Container>
     </Footers>

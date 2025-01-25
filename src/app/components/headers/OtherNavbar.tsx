@@ -51,7 +51,7 @@ export default function OtherNavbar(props: OtherNavbarProps) {
         <Stack className={"menu"}>
           <Box>
             <NavLink to={"/"}>
-              <img className={"brand-logo"} src="/icons/logo.svg" />
+              <img className={"brand-logo"} src="/icons/booksaw.svg" />
             </NavLink>
           </Box>
           <Stack className={"links"}>

@@ -8,6 +8,9 @@ import { CssVarsProvider } from "@mui/joy/styles";
 import CardOverflow from "@mui/joy/CardOverflow";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
+import Divider from "../../components/divider";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import TurnedInIcon from "@mui/icons-material/TurnedIn";
 
 const list = [
   { productName: "Automic Habbit", imagePath: "/img/atomicH.jpeg" },
@@ -16,6 +19,9 @@ const list = [
   { productName: "Biography", imagePath: "/img/test2.webp" },
   { productName: "Automic Habbit", imagePath: "/img/Atomic.jpeg" },
   { productName: "Deep Work", imagePath: "/img/deep_work_A.jpeg" },
+  { productName: "Automic Habbit", imagePath: "/img/Atomic.jpeg" },
+  { productName: "Deep Work", imagePath: "/img/deep_work_A.jpeg" },
+  { productName: "Automic Habbit", imagePath: "/img/Atomic.jpeg" },
 ];
 
 export default function PopularBooks() {
@@ -38,22 +44,12 @@ export default function PopularBooks() {
                         />
                       </CardCover>
                       <CardCover className={"card-cover"} />
-                      <CardContent sx={{ justifyContent: "flex-end" }}>
-                        <Stack
-                          flexDirection={"row"}
-                          justifyContent={"space-between"}
-                        >
-                          <Typography
-                            level="h3"
-                            font-size="lg"
-                            textColor="#fff"
-                            mb={1}
-                          >
-                            {ele.productName}
-                          </Typography>
-                        </Stack>
-                      </CardContent>
+                      <CardContent
+                        sx={{ justifyContent: "flex-end" }}
+                      ></CardContent>
+
                       <CardOverflow
+                        className={"detail-part"}
                         sx={{
                           display: "flex",
                           gap: 0.5,
@@ -63,12 +59,43 @@ export default function PopularBooks() {
                           height: "60px",
                         }}
                       >
-                        <Typography textColor="neutral.300">
+                        <Typography
+                          className={"name"}
+                          level="h3"
+                          font-size="lg"
+                          textColor="#fff"
+                          mb={1}
+                        >
+                          {ele.productName}
+                        </Typography>
+                        <Divider width="27" height="2" bg="#d9d9d9" />
+
+                        <Typography
+                          className={"author"}
+                          textColor="neutral.300"
+                        >
                           Lois Lowrey
                         </Typography>
-                        <Typography textColor="neutral.300">
+                        <Divider width="27" height="2" bg="#d9d9d9" />
+
+                        <Typography className={"price"} textColor="neutral.300">
                           from $3.99
                         </Typography>
+                        <Divider width="27" height="2" bg="#d9d9d9" />
+                        <Stack className={"view"}>
+                          <Typography className={"views"}>
+                            10
+                            <FavoriteIcon
+                              sx={{ fontSize: 20, marginLeft: "5px" }}
+                            />
+                          </Typography>
+                          <Typography className={"views"}>
+                            20
+                            <VisibilityIcon
+                              sx={{ fontSize: 20, marginLeft: "5px" }}
+                            />
+                          </Typography>
+                        </Stack>
                       </CardOverflow>
                     </Card>
                   </CssVarsProvider>

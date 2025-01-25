@@ -19,12 +19,12 @@ export enum ProductStatus {
 
 export enum ProductCollection {
   FICTION = "FICTION",
-  NON_FICTION = "NON_FICTION",
   FANTASY = "FANTASY",
   MYSTERY = "MYSTERY",
   BIOGRAPHY = "BIOGRAPHY",
   SELF_HELP = "SELF_HELP",
   SCIENCE_FICTION = "SCIENCE_FICTION",
   HISTORY = "HISTORY",
+  CHILDREN = "CHILDREN",
   OTHER = "OTHER",
 }

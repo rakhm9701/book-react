@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { Box, Button, Container, Stack } from "@mui/material";
+import { Box, Button, Card, Container, Stack } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
@@ -97,7 +97,7 @@ export default function Products(props: ProductsProps) {
         <Stack className="product-frame">
           <Stack className="avatar-big-box">
             <Box className="product-title" sx={{ pr: "132px" }}>
-              Burak Restaurant
+              Book Store
             </Box>
             <Stack className="product-seach">
               <Box
@@ -134,7 +134,7 @@ export default function Products(props: ProductsProps) {
                 <Button
                   sx={{ display: "flex", alignItems: "center" }}
                   variant={"contained"}
-                  color={"primary"}
+                  color={"error"}
                   onClick={searchProductHandler}
                   style={{
                     width: "106px",
@@ -173,44 +173,104 @@ export default function Products(props: ProductsProps) {
           <Stack className="dishes-filter-section">
             <Stack className="dishes-filter-box">
               <Button
-                variant={"contained"}
-                className={"order"}
+                className="butt"
+                variant="contained"
                 color={
-                  productSearch.order === "createdAt" ? "primary" : "secondary"
+                  productSearch.productCollection === ProductCollection.MYSTERY
+                    ? "error"
+                    : "inherit"
                 }
-                onClick={() => {
-                  searchOrderHandler("createdAt");
-                }}
+                onClick={() =>
+                  searchCollectionHanndler(ProductCollection.MYSTERY)
+                }
               >
-                New
+                Mystery
               </Button>
               <Button
-                variant={"contained"}
-                className={"order"}
+                className="butt"
+                variant="contained"
                 color={
-                  productSearch.order === "productPrice"
-                    ? "primary"
-                    : "secondary"
+                  productSearch.productCollection ===
+                  ProductCollection.SCIENCE_FICTION
+                    ? "error"
+                    : "inherit"
                 }
-                onClick={() => {
-                  searchOrderHandler("productPrice");
-                }}
+                onClick={() =>
+                  searchCollectionHanndler(ProductCollection.SCIENCE_FICTION)
+                }
               >
-                Price
+                Self Improve
               </Button>
               <Button
-                variant={"contained"}
-                className={"order"}
+                className="butt"
+                variant="contained"
                 color={
-                  productSearch.order === "productViews"
-                    ? "primary"
-                    : "secondary"
+                  productSearch.productCollection ===
+                  ProductCollection.BIOGRAPHY
+                    ? "error"
+                    : "inherit"
                 }
-                onClick={() => {
-                  searchOrderHandler("productViews");
-                }}
+                onClick={() =>
+                  searchCollectionHanndler(ProductCollection.BIOGRAPHY)
+                }
               >
-                Views
+                Biography
+              </Button>
+              <Button
+                className="butt"
+                variant="contained"
+                color={
+                  productSearch.productCollection === ProductCollection.CHILDREN
+                    ? "error"
+                    : "inherit"
+                }
+                onClick={() =>
+                  searchCollectionHanndler(ProductCollection.CHILDREN)
+                }
+              >
+                Children
+              </Button>
+              <Button
+                className="butt"
+                variant="contained"
+                color={
+                  productSearch.productCollection === ProductCollection.FANTASY
+                    ? "error"
+                    : "inherit"
+                }
+                onClick={() =>
+                  searchCollectionHanndler(ProductCollection.FANTASY)
+                }
+              >
+                Fantasy
+              </Button>
+              <Button
+                className="butt"
+                variant="contained"
+                color={
+                  productSearch.productCollection === ProductCollection.FICTION
+                    ? "error"
+                    : "inherit"
+                }
+                onClick={() =>
+                  searchCollectionHanndler(ProductCollection.FICTION)
+                }
+              >
+                Fiction
+              </Button>
+              <Button
+                className="butt"
+                variant="contained"
+                color={
+                  productSearch.productCollection === ProductCollection.OTHER
+                    ? "error"
+                    : "inherit"
+                }
+                onClick={() =>
+                  searchCollectionHanndler(ProductCollection.OTHER)
+                }
+              >
+                Other
               </Button>
             </Stack>
           </Stack>
@@ -218,70 +278,40 @@ export default function Products(props: ProductsProps) {
             <Stack className="product-category">
               <div className="category-main">
                 <Button
-                  variant="contained"
+                  variant={"contained"}
+                  className={"order"}
                   color={
-                    productSearch.productCollection === ProductCollection.OTHER
-                      ? "primary"
-                      : "secondary"
+                    productSearch.order === "createdAt" ? "error" : "inherit"
                   }
-                  onClick={() =>
-                    searchCollectionHanndler(ProductCollection.OTHER)
-                  }
+                  onClick={() => {
+                    searchOrderHandler("createdAt");
+                  }}
                 >
-                  Other
+                  New
                 </Button>
                 <Button
-                  variant="contained"
+                  variant={"contained"}
+                  className={"order"}
                   color={
-                    productSearch.productCollection ===
-                    ProductCollection.FANTASY
-                      ? "primary"
-                      : "secondary"
+                    productSearch.order === "productPrice" ? "error" : "inherit"
                   }
-                  onClick={() =>
-                    searchCollectionHanndler(ProductCollection.FANTASY)
-                  }
+                  onClick={() => {
+                    searchOrderHandler("productPrice");
+                  }}
                 >
-                  Dessert
+                  Price
                 </Button>
                 <Button
-                  variant="contained"
+                  variant={"contained"}
+                  className={"order"}
                   color={
-                    productSearch.productCollection === ProductCollection.FICTION
-                      ? "primary"
-                      : "secondary"
+                    productSearch.order === "productViews" ? "error" : "inherit"
                   }
-                  onClick={() =>
-                    searchCollectionHanndler(ProductCollection.FICTION)
-                  }
+                  onClick={() => {
+                    searchOrderHandler("productViews");
+                  }}
                 >
-                  Drink
-                </Button>
-                <Button
-                  variant="contained"
-                  color={
-                    productSearch.productCollection === ProductCollection.HISTORY
-                      ? "primary"
-                      : "secondary"
-                  }
-                  onClick={() =>
-                    searchCollectionHanndler(ProductCollection.HISTORY)
-                  }
-                >
-                  Salad
-                </Button>
-                <Button
-                  variant="contained"
-                  color={
-                    productSearch.productCollection === ProductCollection.MYSTERY
-                      ? "primary"
-                      : "secondary"
-                  }
-                  onClick={() =>
-                    searchCollectionHanndler(ProductCollection.MYSTERY)
-                  }
-                >
-                  Dish
+                  Views
                 </Button>
               </div>
             </Stack>
@@ -290,7 +320,7 @@ export default function Products(props: ProductsProps) {
                 products.map((product: Product) => {
                   const imagePath = `${serverApi}/${product.productImages[0]}`;
                   const sizeVolume =
-                    product.productCollection === ProductCollection.NON_FICTION
+                    product.productCollection === ProductCollection.CHILDREN
                       ? product.productVolume + "litre"
                       : product.productSize + "size";
                   return (
@@ -323,7 +353,7 @@ export default function Products(props: ProductsProps) {
                             }}
                             sx={{ left: "110px", bottom: "30px" }}
                           >
-                            <img src={"icons/shopping-cart.svg"} />
+                            <img src={"icons/Vector.svg"} />
                           </Button>
                           <Button
                             className="view-btn"
@@ -349,9 +379,11 @@ export default function Products(props: ProductsProps) {
                         <span className="product-title">
                           {product.productName}
                         </span>
+
                         <div className="product-price">
                           <MonetizationOnIcon />
                           {product.productPrice}
+                          <span>Author</span>
                         </div>
                       </Box>
                     </Stack>
@@ -385,24 +417,19 @@ export default function Products(props: ProductsProps) {
           </Stack>
         </Stack>
       </Container>
-      <div className="brands-logo">
+      <div className="quote">
         <Container>
-          <Stack className="brand-frame">
-            <Box className="brand-title">Our Family Brands</Box>
-            <Stack className="brand-boxs">
-              <Box className="brand-box">
-                <img src="img/gurme.webp" className="brand-img" alt="" />
+          <Stack className="quote-frame">
+            <Box className="quote-title">Quote Of The day</Box>
+            <Card className="quote-boxs">
+              <Box className="quote-box">
+                <span>
+                  "The More That you read,the more things you will know. The
+                  more that you learn, the more place you wil go. "
+                </span>
+                <h3>Dr.Seuss</h3>
               </Box>
-              <Box className="brand-box">
-                <img src="img/seafood.webp" className="brand-img" alt="" />
-              </Box>
-              <Box className="brand-box">
-                <img src="img/sweets.webp" className="brand-img" alt="" />
-              </Box>
-              <Box className="brand-box">
-                <img src="img/doner.webp" className="brand-img" alt="" />
-              </Box>
-            </Stack>
+            </Card>
           </Stack>
         </Container>
       </div>

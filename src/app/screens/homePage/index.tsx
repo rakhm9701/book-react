@@ -15,7 +15,7 @@ import { ProductCollection } from "../../../lib/enums/product.enum";
 import MemberService from "../../services/MemberService";
 import { Member } from "../../../lib/types/member";
 import "../../../css/home.css";
-
+import Articles from "./Article";
 
 //** REDUX SLICE & SELECTOR **//
 const actionDispatch = (dispatch: Dispatch) => ({
@@ -68,11 +68,12 @@ export default function HomePage() {
     <div className={"homepage"}>
       <Statistics />
       <PopularBooks />
-      <NewBooks />
       <Children />
+      <NewBooks />
       <Advertisement />
       <ActiveUsers />
       <Events />
+      <Articles />
     </div>
   );
 }

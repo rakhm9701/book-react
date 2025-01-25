@@ -11,7 +11,6 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 
-
 // import { Dispatch } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
 import { setChosenProduct, setRestaurant } from "./slice";
@@ -142,6 +141,20 @@ export default function ChosenProduct(props: ChosenProductsProps) {
               </Button>
             </div>
           </Box>
+        </Stack>
+
+        <Stack className={"other-info"}>
+          <Box className={"extra-info"}>Author: </Box>
+          <Divider height="1" width="100%" bg="#000000" />
+          <Box className={"extra-info"}>Category:</Box>
+          <Divider height="1" width="100%" bg="#000000" />
+          <Box className={"extra-info"}>Size:</Box>
+          <Divider height="1" width="100%" bg="#000000" />
+          <Box className={"extra-info"}>Description:</Box>
+          <Divider height="1" width="100%" bg="#000000" />
+          <Box className={"extra-info"}>14-day Returns</Box>
+          <Divider height="1" width="100%" bg="#000000" />
+          <Box></Box>
         </Stack>
       </Container>
     </div>
