@@ -12,6 +12,8 @@ import { createSelector } from "reselect";
 import { retrieveKidsBooks } from "./selector";
 import { Product } from "../../../lib/types/product";
 import { serverApi } from "../../../lib/config";
+import { useHistory } from "react-router-dom";
+
 
 //** REDUX SLICE & SELECTOR **//
 const kidsBooksRetriever = createSelector(retrieveKidsBooks, (kidsBooks) => ({
@@ -19,7 +21,15 @@ const kidsBooksRetriever = createSelector(retrieveKidsBooks, (kidsBooks) => ({
 }));
 
 export default function Children() {
+  const history = useHistory();
   const { kidsBooks } = useSelector(kidsBooksRetriever);
+
+  //**Handlers */
+  const chooseDishHandler = (id: string) => {
+    history.push(`/products/${id}`);
+    console.log("one:", id);
+  };
+
   return (
     <div className={"popular-children-frame"}>
       <Container>
@@ -30,11 +40,11 @@ export default function Children() {
             {kidsBooks.length !== 0 ? (
               kidsBooks.map((product: Product) => {
                 const imagePath = `${serverApi}/${product.productImages[0]}`;
-                const priceCals = Math.floor(product.productPrice * 1.3)
+                const priceCals = Math.floor(product.productPrice * 1.3);
                 return (
                   <CssVarsProvider key={product._id}>
                     <Card className={"card"}>
-                      <CardCover>
+                      <CardCover onClick={() => chooseDishHandler(product._id)}>
                         <img src={imagePath} alt="" className={"card-img"} />
                       </CardCover>
                       <CardCover className={"card-cover"} />
@@ -43,10 +53,16 @@ export default function Children() {
                           flexDirection={"row"}
                           justifyContent={"space-between"}
                         >
-                          <Typography textColor="neutral.300" sx={{textDecoration: "line-through"}}>
-                           ${priceCals}
+                          <Typography
+                            textColor="neutral.300"
+                            sx={{ textDecoration: "line-through" }}
+                          >
+                            ${priceCals}
                           </Typography>
-                          <Typography textColor="neutral.300" marginLeft={"60px"}>
+                          <Typography
+                            textColor="neutral.300"
+                            marginLeft={"60px"}
+                          >
                             ${product.productPrice}
                           </Typography>
                         </Stack>
@@ -69,6 +85,7 @@ export default function Children() {
                           font-size="lg"
                           textColor="#fff"
                           mb={1}
+                          onClick={() => chooseDishHandler(product._id)}
                         >
                           {product.productName}
                         </Typography>

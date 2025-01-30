@@ -1,6 +1,7 @@
 import axios from "axios";
 import { serverApi } from "../../lib/config";
 import { Product, ProductInQuery } from "../../lib/types/product";
+import { Like } from "../../lib/types/like";
 
 class ProductService {
   private readonly path: string;
@@ -42,9 +43,9 @@ class ProductService {
   }
 
   // getLikes
-  public async getlikes(productId: string): Promise<Product> {
+  public async getlikes(productId: string): Promise<Like> {
     try {
-      const url = `${this.path}/product/like/${productId}`;
+      const url = `${this.path}/like/${productId}`;
       const result = await axios.get(url, { withCredentials: true });
 
       return result.data;

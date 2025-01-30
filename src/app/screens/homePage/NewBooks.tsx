@@ -15,18 +15,28 @@ import { createSelector } from "reselect";
 import { retrieveNewBooks } from "./selector";
 import { Product } from "../../../lib/types/product";
 import { serverApi } from "../../../lib/config";
+import { CartItem } from "../../../lib/types/search";
+import { useHistory } from "react-router-dom";
 
+interface ChosenProductsProps {
+  onAdd: (item: CartItem) => void;
+}
 
 //** REDUX SLICE & SELECTOR **//
 const newBooksRetriever = createSelector(retrieveNewBooks, (newBooks) => ({
   newBooks,
 }));
 
-
-
-export default function NewBooks() {
+export default function NewBooks(props: ChosenProductsProps) {
+  const { onAdd } = props;
   const { newBooks } = useSelector(newBooksRetriever);
-  console.log("newDishes:", newBooks);
+  const history = useHistory();
+
+  //**Handlers */
+  const chooseDishHandler = (id: string) => {
+    history.push(`/products/${id}`);
+    console.log("one:", id);
+  };
 
   return (
     <div className={"new-books-frame"}>
@@ -48,24 +58,40 @@ export default function NewBooks() {
                       className={"card"}
                     >
                       <CardOverflow>
-                        <AspectRatio ratio="1">
+                        <AspectRatio
+                          ratio="1"
+                          onClick={() => chooseDishHandler(product._id)}
+                        >
                           <img src={imagePath} alt="" className={"img"} />
                         </AspectRatio>
                         <div className={"product-sale"}>
                           {`${product.productSize}`}
                         </div>
-                        <Button
+                        <div
                           className={"product-sale"}
-                         
+                          onClick={(e) => {
+                            console.log("Button Press");
+                            onAdd({
+                              _id: product._id,
+                              quantity: 1,
+                              name: product.productName,
+                              price: product.productPrice,
+                              image: product.productImages[0],
+                            });
+                            e.stopPropagation();
+                          }}
                         >
-                          Add to Cart
-                        </Button>
+                          Add To Cart
+                        </div>
                       </CardOverflow>
 
                       <CardOverflow variant="soft" className="product-detail">
                         <Stack className={"info"}>
                           <Stack className={"row"}>
-                            <Typography className={"title"}>
+                            <Typography
+                              className={"title"}
+                              onClick={() => chooseDishHandler(product._id)}
+                            >
                               {product.productName}
                             </Typography>
 

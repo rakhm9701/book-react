@@ -3,6 +3,7 @@ import {
   ProductSize,
   ProductStatus,
 } from "../enums/product.enum";
+import { Like } from "./like";
 
 export interface Product {
   _id: string;
@@ -20,6 +21,7 @@ export interface Product {
   productViews: number;
   createdAt: Date;
   updatedAt: Date;
+  like?: Like;
 }
 
 export interface ProductInQuery {

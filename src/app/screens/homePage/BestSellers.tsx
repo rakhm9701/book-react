@@ -14,6 +14,7 @@ import { createSelector } from "reselect";
 import { retrieveBestSellers } from "./selector";
 import { Product } from "../../../lib/types/product";
 import { serverApi } from "../../../lib/config";
+import { useHistory } from "react-router-dom";
 
 //** REDUX SLICE & SELECTOR **//
 const bestSellersRetriever = createSelector(
@@ -23,6 +24,13 @@ const bestSellersRetriever = createSelector(
 
 export default function PopularBooks() {
   const { bestSellers } = useSelector(bestSellersRetriever);
+  const history = useHistory();
+  
+  //**Handlers */
+  const chooseDishHandler = (id: string) => {
+    history.push(`/products/${id}`);
+    console.log("one:", id);
+  };
 
   return (
     <div className={"popular-dishes-frame"}>
@@ -37,7 +45,12 @@ export default function PopularBooks() {
                   <CssVarsProvider key={product._id}>
                     <Card className={"card"}>
                       <CardCover>
-                        <img src={imagePath} alt="" className={"card-img"} />
+                        <img
+                          src={imagePath}
+                          alt=""
+                          className={"card-img"}
+                          onClick={() => chooseDishHandler(product._id)}
+                        />
                       </CardCover>
                       <CardCover className={"card-cover"} />
                       <CardContent
@@ -61,6 +74,7 @@ export default function PopularBooks() {
                           font-size="lg"
                           textColor="#fff"
                           mb={1}
+                          onClick={() => chooseDishHandler(product._id)}
                         >
                           {product.productName}
                         </Typography>

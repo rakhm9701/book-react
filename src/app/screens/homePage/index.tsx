@@ -21,6 +21,12 @@ import MemberService from "../../services/MemberService";
 import { Member } from "../../../lib/types/member";
 import Articles from "./Article";
 import "../../../css/home.css";
+import { CartItem } from "../../../lib/types/search";
+import { Route } from "react-router-dom";
+
+interface ProductsPageProps {
+  onAdd: (item: CartItem) => void;
+}
 
 //** REDUX SLICE & SELECTOR **//
 const actionDispatch = (dispatch: Dispatch) => ({
@@ -30,7 +36,8 @@ const actionDispatch = (dispatch: Dispatch) => ({
   setTopUsers: (data: Member[]) => dispatch(setTopUsers(data)),
 });
 
-export default function HomePage() {
+export default function HomePage(props: ProductsPageProps) {
+  const { onAdd } = props;
   const { setBestSellers, setKidsBooks, setNewBooks, setTopUsers } =
     actionDispatch(useDispatch());
 
@@ -85,7 +92,7 @@ export default function HomePage() {
       <Statistics />
       <PopularBooks />
       <Children />
-      <NewBooks />
+      <NewBooks onAdd={onAdd} />
       <Advertisement />
       <ActiveUsers />
       <Events />

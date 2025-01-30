@@ -199,7 +199,7 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
             direction={"row"}
             sx={{ width: "700px" }}
           >
-            <ModalImg src={"/img"} alt="camera" />
+            <ModalImg src={"/img/auth.webp"} alt="camera" />
             <Stack
               sx={{
                 marginLeft: "65px",

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Stack, Box } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
@@ -47,6 +47,7 @@ interface ChosenProductsProps {
 }
 
 export default function ChosenProduct(props: ChosenProductsProps) {
+  const [likeTarget, setLikeTarget] = useState<boolean>(false)
   const { onAdd } = props;
   const { setChosenProduct } = actionDispatch(useDispatch());
   const { setShop } = actionDispatch(useDispatch());
@@ -72,14 +73,15 @@ export default function ChosenProduct(props: ChosenProductsProps) {
       .getRastaurant()
       .then((data) => setShop(data))
       .catch((err) => console.log(err));
-  }, []);
+  }, [likeTarget]);
 
   //**Handlers */
 
-  const likeHandlers = async () => {
+  const likeHandlers = async (productId: string) => {
     try {
       const product = new ProductService();
       const result = await product.getlikes(productId);
+      setLikeTarget(likeTarget => !likeTarget)
     } catch (err) {}
   };
 
@@ -116,18 +118,13 @@ export default function ChosenProduct(props: ChosenProductsProps) {
             <Box className={"rating-box"}>
               <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
               <div className={"evaluation-box"}>
-                <Button style={{marginRight: "15px"}} onClick={(e) => {
-                  onAdd({
-                    _id: chosenProduct._id,
-                    quantity: 1,
-                    name: chosenProduct.productName,
-                    price: chosenProduct.productPrice,
-                    image: chosenProduct.productImages[0],
-                  });
-                   e.stopPropagation();
-                }}>
-                  <FavoriteIcon 
+                <Button
+                  style={{ marginRight: "15px" }}
+                  onClick={() => likeHandlers(chosenProduct?._id)}
+                >
+                  <FavoriteIcon
                     sx={{
+                      color: chosenProduct.like ? "red" : "black",
                       mr: "10px",
                       fontSize: 20,
                       alignItems: "center",
@@ -176,27 +173,27 @@ export default function ChosenProduct(props: ChosenProductsProps) {
           <Box className={"extra-info"}>
             <span className={"info"}>Author:{chosenProduct.productAuthor}</span>
           </Box>
-          <Divider height="1" width="100%" bg="#000000" />
+
           <Box className={"extra-info"}>
             <span className={"info"}>
               Category:{chosenProduct.productCollection}
             </span>
           </Box>
-          <Divider height="1" width="100%" bg="#000000" />
+
           <Box className={"extra-info"}>
             <span className={"info"}> Size: {chosenProduct.productSize}</span>
           </Box>
-          <Divider height="1" width="100%" bg="#000000" />
+
           <Box className={"extra-info"}>
             <span className={"info"}>
               Description:{chosenProduct.productDesc}
             </span>
           </Box>
-          <Divider height="1" width="100%" bg="#000000" />
+
           <Box className={"extra-info"}>
             <span className={"info"}> 14-day Returns</span>
           </Box>
-          <Divider height="1" width="100%" bg="#000000" />
+
           <Box></Box>
         </Stack>
       </Container>
