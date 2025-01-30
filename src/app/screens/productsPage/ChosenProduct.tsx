@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Container, Stack, Box } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import Divider from "../../components/divider";
 import Button from "@mui/material/Button";
 import Rating from "@mui/material/Rating";
@@ -13,10 +14,10 @@ import "swiper/css/thumbs";
 
 // import { Dispatch } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
-import { setChosenProduct, setRestaurant } from "./slice";
+import { setChosenProduct, setShop } from "./slice";
 import { Product } from "../../../lib/types/product";
 import { useDispatch, useSelector } from "react-redux";
-import { retrieveChosenProduct, retrieveRestaurant } from "./selecter";
+import { retrieveChosenProduct, retrieveShop } from "./selecter";
 import { Dispatch } from "@reduxjs/toolkit";
 import { useParams } from "react-router-dom";
 import ProductService from "../../services/ProductService";
@@ -27,7 +28,7 @@ import { CartItem } from "../../../lib/types/search";
 
 const actionDispatch = (dispatch: Dispatch) => ({
   setChosenProduct: (data: Product) => dispatch(setChosenProduct(data)),
-  setRestaurant: (data: Member) => dispatch(setRestaurant(data)),
+  setShop: (data: Member) => dispatch(setShop(data)),
 });
 
 const ChosenProductRetrieve = createSelector(
@@ -37,8 +38,8 @@ const ChosenProductRetrieve = createSelector(
   })
 );
 
-const RestaurantRetrieve = createSelector(retrieveRestaurant, (restaurant) => ({
-  restaurant,
+const ShopRetrieve = createSelector(retrieveShop, (shop) => ({
+  shop,
 }));
 
 interface ChosenProductsProps {
@@ -48,11 +49,11 @@ interface ChosenProductsProps {
 export default function ChosenProduct(props: ChosenProductsProps) {
   const { onAdd } = props;
   const { setChosenProduct } = actionDispatch(useDispatch());
-  const { setRestaurant } = actionDispatch(useDispatch());
+  const { setShop } = actionDispatch(useDispatch());
   const { chosenProduct } = useSelector(ChosenProductRetrieve);
   console.log("chosenProduct:", chosenProduct);
-  const { restaurant } = useSelector(RestaurantRetrieve);
-  console.log("restaurant:", restaurant);
+  const { shop } = useSelector(ShopRetrieve);
+  console.log("shop:", shop);
 
   /* Hook */
   const { productId } = useParams<{ productId: string }>();
@@ -69,9 +70,18 @@ export default function ChosenProduct(props: ChosenProductsProps) {
     const member = new MemberService();
     member
       .getRastaurant()
-      .then((data) => setRestaurant(data))
+      .then((data) => setShop(data))
       .catch((err) => console.log(err));
   }, []);
+
+  //**Handlers */
+
+  const likeHandlers = async () => {
+    try {
+      const product = new ProductService();
+      const result = await product.getlikes(productId);
+    } catch (err) {}
+  };
 
   if (!chosenProduct) return null;
   return (
@@ -101,11 +111,30 @@ export default function ChosenProduct(props: ChosenProductsProps) {
             <strong className={"product-name"}>
               {chosenProduct?.productName}
             </strong>
-            <span className={"resto-name"}>{restaurant?.memberNick}</span>
-            <span className={"resto-name"}>{restaurant?.memberPhone}</span>
+            <span className={"resto-name"}>{shop?.memberNick}</span>
+            <span className={"resto-name"}>{shop?.memberPhone}</span>
             <Box className={"rating-box"}>
               <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
               <div className={"evaluation-box"}>
+                <Button style={{marginRight: "15px"}} onClick={(e) => {
+                  onAdd({
+                    _id: chosenProduct._id,
+                    quantity: 1,
+                    name: chosenProduct.productName,
+                    price: chosenProduct.productPrice,
+                    image: chosenProduct.productImages[0],
+                  });
+                   e.stopPropagation();
+                }}>
+                  <FavoriteIcon 
+                    sx={{
+                      mr: "10px",
+                      fontSize: 20,
+                      alignItems: "center",
+                    }}
+                  />
+                  {chosenProduct.productLikes}
+                </Button>
                 <div className={"product-view"}>
                   <RemoveRedEyeIcon sx={{ mr: "10px" }} />
                   <span>{chosenProduct.productViews}</span>
@@ -144,15 +173,29 @@ export default function ChosenProduct(props: ChosenProductsProps) {
         </Stack>
 
         <Stack className={"other-info"}>
-          <Box className={"extra-info"}>Author: </Box>
+          <Box className={"extra-info"}>
+            <span className={"info"}>Author:{chosenProduct.productAuthor}</span>
+          </Box>
           <Divider height="1" width="100%" bg="#000000" />
-          <Box className={"extra-info"}>Category:</Box>
+          <Box className={"extra-info"}>
+            <span className={"info"}>
+              Category:{chosenProduct.productCollection}
+            </span>
+          </Box>
           <Divider height="1" width="100%" bg="#000000" />
-          <Box className={"extra-info"}>Size:</Box>
+          <Box className={"extra-info"}>
+            <span className={"info"}> Size: {chosenProduct.productSize}</span>
+          </Box>
           <Divider height="1" width="100%" bg="#000000" />
-          <Box className={"extra-info"}>Description:</Box>
+          <Box className={"extra-info"}>
+            <span className={"info"}>
+              Description:{chosenProduct.productDesc}
+            </span>
+          </Box>
           <Divider height="1" width="100%" bg="#000000" />
-          <Box className={"extra-info"}>14-day Returns</Box>
+          <Box className={"extra-info"}>
+            <span className={"info"}> 14-day Returns</span>
+          </Box>
           <Divider height="1" width="100%" bg="#000000" />
           <Box></Box>
         </Stack>

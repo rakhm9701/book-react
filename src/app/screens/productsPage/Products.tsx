@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { Box, Button, Card, Container, Stack } from "@mui/material";
+import { Box, Button, Card, Container, Select, Stack } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
@@ -170,6 +170,54 @@ export default function Products(props: ProductsProps) {
               </Box>
             </Stack>
           </Stack>
+          <Stack className="product-category">
+            <span>Sort By</span>
+            <Select
+              className="category-main"
+              defaultValue="New"
+              style={{ width: 100 }}
+            >
+              <Button
+                variant={"contained"}
+                className={"order"}
+                value="New"
+                color={
+                  productSearch.order === "createdAt" ? "error" : "inherit"
+                }
+                onClick={() => {
+                  searchOrderHandler("createdAt");
+                }}
+              >
+                New
+              </Button>
+              <Button
+                variant={"contained"}
+                className={"order"}
+                value="Price"
+                color={
+                  productSearch.order === "productPrice" ? "error" : "inherit"
+                }
+                onClick={() => {
+                  searchOrderHandler("productPrice");
+                }}
+              >
+                Price
+              </Button>
+              <Button
+                variant={"contained"}
+                className={"order"}
+                value="Views"
+                color={
+                  productSearch.order === "productViews" ? "error" : "inherit"
+                }
+                onClick={() => {
+                  searchOrderHandler("productViews");
+                }}
+              >
+                Views
+              </Button>
+            </Select>
+          </Stack>
           <Stack className="dishes-filter-section">
             <Stack className="dishes-filter-box">
               <Button
@@ -275,54 +323,14 @@ export default function Products(props: ProductsProps) {
             </Stack>
           </Stack>
           <Stack className="list-category-section">
-            <Stack className="product-category">
-              <div className="category-main">
-                <Button
-                  variant={"contained"}
-                  className={"order"}
-                  color={
-                    productSearch.order === "createdAt" ? "error" : "inherit"
-                  }
-                  onClick={() => {
-                    searchOrderHandler("createdAt");
-                  }}
-                >
-                  New
-                </Button>
-                <Button
-                  variant={"contained"}
-                  className={"order"}
-                  color={
-                    productSearch.order === "productPrice" ? "error" : "inherit"
-                  }
-                  onClick={() => {
-                    searchOrderHandler("productPrice");
-                  }}
-                >
-                  Price
-                </Button>
-                <Button
-                  variant={"contained"}
-                  className={"order"}
-                  color={
-                    productSearch.order === "productViews" ? "error" : "inherit"
-                  }
-                  onClick={() => {
-                    searchOrderHandler("productViews");
-                  }}
-                >
-                  Views
-                </Button>
-              </div>
-            </Stack>
             <Stack className="product-wrapper">
               {products.length !== 0 ? (
                 products.map((product: Product) => {
                   const imagePath = `${serverApi}/${product.productImages[0]}`;
                   const sizeVolume =
                     product.productCollection === ProductCollection.CHILDREN
-                      ? product.productVolume + "litre"
-                      : product.productSize + "size";
+                      ? product.productVolume
+                      : product.productSize;
                   return (
                     <Stack
                       key={product._id}
@@ -339,6 +347,10 @@ export default function Products(props: ProductsProps) {
                       >
                         <div className="product-sale">{sizeVolume}</div>
                         <Stack className="shop-hidden">
+                          <Button>
+                            <MonetizationOnIcon />
+                            {product.productPrice}
+                          </Button>
                           <Button
                             className="shop-btn"
                             onClick={(e) => {
@@ -351,14 +363,10 @@ export default function Products(props: ProductsProps) {
                               });
                               e.stopPropagation();
                             }}
-                            sx={{ left: "110px", bottom: "30px" }}
                           >
                             <img src={"icons/Vector.svg"} />
                           </Button>
-                          <Button
-                            className="view-btn"
-                            sx={{ right: "20px", bottom: "12px" }}
-                          >
+                          <Button className="view-btn">
                             <Badge
                               badgeContent={product.productViews}
                               color="secondary"
@@ -381,16 +389,14 @@ export default function Products(props: ProductsProps) {
                         </span>
 
                         <div className="product-price">
-                          <MonetizationOnIcon />
-                          {product.productPrice}
-                          <span>Author</span>
+                          <span>{product.productAuthor}</span>
                         </div>
                       </Box>
                     </Stack>
                   );
                 })
               ) : (
-                <Box className="no-data">Popular product are not avaiable!</Box>
+                <Box className="no-data">products are not avaiable!</Box>
               )}
             </Stack>
           </Stack>

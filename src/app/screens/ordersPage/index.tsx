@@ -3,38 +3,39 @@ import Tabs from "@mui/material/Tabs";
 import { TabContext } from "@mui/lab";
 import { Box, Container, Stack } from "@mui/material";
 import { useEffect, useState } from "react";
+
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import Divider from "../../components/divider";
-import PausedOrders from "./PausedOrders";
-import ProcessOrders from "./ProcessOrders";
-import FinishedOrders from "./FinishedOrders";
-import { useDispatch } from "react-redux";
-import { Dispatch } from "@reduxjs/toolkit";
-import { setPauseOrders, setProcessOrders, setFinishedOrders } from "./slice";
-import { Order, OrderInQuiry } from "../../../lib/types/order";
-import { OrderStatus } from "../../../lib/enums/order.enum";
-import OrderService from "../../services/OrderService";
-import { useGlobals } from "../../hooks/useGlobals";
 import "../../../css/order.css";
+import Divider from "../../components/divider";
+import { setFinishedOrders, setPauseOrders, setProcessOrders } from "./slice";
+import { Order, OrderInQuiry } from "../../../lib/types/order";
+import { Dispatch } from "@reduxjs/toolkit";
+import { useDispatch } from "react-redux";
+import OrderService from "../../services/OrderService";
+import { OrderStatus } from "../../../lib/enums/order.enum";
+import { useGlobals } from "../../hooks/useGlobals";
 import { useHistory } from "react-router-dom";
 import { serverApi } from "../../../lib/config";
 import { MemberType } from "../../../lib/enums/member.enum";
+import Paused from "./PausedOrders";
+import Proccess from "./ProcessOrders";
+import Finished from "./FinishedOrders";
 
-//** REDUX SLICE & SELECTOR **//
 const actionDispatch = (dispatch: Dispatch) => ({
-  setPauseOrders: (data: Order[]) => dispatch(setPauseOrders(data)),
+  setPausedOrders: (data: Order[]) => dispatch(setPauseOrders(data)),
   setProcessOrders: (data: Order[]) => dispatch(setProcessOrders(data)),
   setFinishedOrders: (data: Order[]) => dispatch(setFinishedOrders(data)),
 });
 
-// OrdersPage function
 export default function OrdersPage() {
-  const { setPauseOrders, setProcessOrders, setFinishedOrders } =
-    actionDispatch(useDispatch());
-  const { orderBuilder, authMember } = useGlobals();
   const history = useHistory();
-  const [value, setValue] = useState("1");
-  const [orderInquiry, setOrderInquiry] = useState<OrderInQuiry>({
+  const { authMember } = useGlobals();
+  const { setPausedOrders, setProcessOrders, setFinishedOrders } =
+    actionDispatch(useDispatch());
+
+  const { orderBuilder } = useGlobals();
+
+  const [orderInquery, setOrderInquery] = useState<OrderInQuiry>({
     page: 1,
     limit: 5,
     orderStatus: OrderStatus.PAUSE,
@@ -42,27 +43,24 @@ export default function OrdersPage() {
 
   useEffect(() => {
     const order = new OrderService();
+
     order
-      .getMyOrders({ ...orderInquiry, orderStatus: OrderStatus.PAUSE })
-      .then((data) => {
-        setPauseOrders(data);
-      })
+      .getMyOrders({ ...orderInquery, orderStatus: OrderStatus.PAUSE })
+      .then((data) => setPausedOrders(data))
       .catch((err) => console.log(err));
 
     order
-      .getMyOrders({ ...orderInquiry, orderStatus: OrderStatus.PROCESS })
-      .then((data) => {
-        setProcessOrders(data);
-      })
+      .getMyOrders({ ...orderInquery, orderStatus: OrderStatus.PROCESS })
+      .then((data) => setProcessOrders(data))
       .catch((err) => console.log(err));
 
     order
-      .getMyOrders({ ...orderInquiry, orderStatus: OrderStatus.FINISH })
-      .then((data) => {
-        setFinishedOrders(data);
-      })
+      .getMyOrders({ ...orderInquery, orderStatus: OrderStatus.FINISH })
+      .then((data) => setFinishedOrders(data))
       .catch((err) => console.log(err));
-  }, [orderInquiry, orderBuilder]);
+  }, [orderInquery, orderBuilder]);
+
+  const [value, setValue] = useState("1");
 
   /** HANDLERS **/
   const handleChange = (e: React.SyntheticEvent, newValue: string) => {
@@ -70,7 +68,6 @@ export default function OrdersPage() {
   };
 
   if (!authMember) history.push("/");
-
   return (
     <div className="order_page">
       <Container className={"order-container"}>
@@ -90,9 +87,9 @@ export default function OrdersPage() {
                 </Tabs>
               </Box>
             </Box>
-            <PausedOrders setValue={setValue} />
-            <ProcessOrders setValue={setValue} />
-            <FinishedOrders />
+            <Paused setValue={setValue} />
+            <Proccess setValue={setValue} />
+            <Finished />
           </TabContext>
         </Stack>
         <Stack className="order-right">
@@ -102,27 +99,29 @@ export default function OrdersPage() {
                 className="avatar"
                 src={
                   authMember?.memberImage
-                    ? `${serverApi}/${authMember.memberImage} `
-                    : ".icons/default-user.svg"
+                    ? `${serverApi}/${authMember.memberImage}`
+                    : "/icons/default-user.svg"
                 }
+                alt=""
               />
               <img
                 className="user"
                 src={
-                  authMember?.memberType === MemberType.RESTAURANT
+                  authMember?.memberType === MemberType.ADMIN
                     ? "/icons/restaurant.svg"
                     : "/icons/user-badge.svg"
                 }
+                alt=""
               />
             </div>
-            <p className="fullname"> {authMember?.memberNick}</p>
-            <p className="member-type"> {authMember?.memberType}</p>
+            <p className="fullname">{authMember?.memberNick}</p>
+            <p className="member-type">{authMember?.memberType}</p>
             <Divider height="2" width="332" bg="rgb(161, 161, 161)" />
             <p className="address">
-              <LocationOnIcon />{" "}
+              <LocationOnIcon style={{ marginRight: "6px" }} />{" "}
               {authMember?.memberAddress
                 ? authMember.memberAddress
-                : "Do not exist"}
+                : "No Addresss"}
             </p>
           </Stack>
           <Stack className="order-bott">

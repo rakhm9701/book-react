@@ -9,12 +9,14 @@ export interface Product {
   productStatus: ProductStatus;
   productCollection: ProductCollection;
   productName: string;
+  productAuthor: string;
   productPrice: number;
   productLeftCount: number;
   productSize: ProductSize;
   productVolume: number;
   productDesc?: string;
   productImages: string[];
+  productLikes: number;
   productViews: number;
   createdAt: Date;
   updatedAt: Date;

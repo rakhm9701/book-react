@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Container, Stack } from "@mui/material";
+import { Box, Button, Container, Stack } from "@mui/material";
 import AspectRatio from "@mui/joy/AspectRatio";
 import Card from "@mui/joy/Card";
 import CardOverflow from "@mui/joy/CardOverflow";
@@ -8,19 +8,26 @@ import { CssVarsProvider } from "@mui/joy/styles";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import TurnedInIcon from "@mui/icons-material/TurnedIn";
-
 import Divider from "../../components/divider";
 
-const list = [
-  { productName: "Automic Habbit", imagePath: "/img/atomicH.jpeg" },
-  { productName: "Deep Work", imagePath: "/img/deep_work.jpeg" },
-  { productName: "Self Improve", imagePath: "/img/test.webp" },
-  { productName: "Biography", imagePath: "/img/test2.webp" },
-  { productName: "Automic Habbit", imagePath: "/img/Atomic.jpeg" },
-  { productName: "Deep Work", imagePath: "/img/deep_work_A.jpeg" },
-];
+import { useSelector } from "react-redux";
+import { createSelector } from "reselect";
+import { retrieveNewBooks } from "./selector";
+import { Product } from "../../../lib/types/product";
+import { serverApi } from "../../../lib/config";
+
+
+//** REDUX SLICE & SELECTOR **//
+const newBooksRetriever = createSelector(retrieveNewBooks, (newBooks) => ({
+  newBooks,
+}));
+
+
 
 export default function NewBooks() {
+  const { newBooks } = useSelector(newBooksRetriever);
+  console.log("newDishes:", newBooks);
+
   return (
     <div className={"new-books-frame"}>
       <Container>
@@ -28,27 +35,42 @@ export default function NewBooks() {
           <Box className={"category-title"}>New Books</Box>
           <Stack className={"cards-frame"}>
             <CssVarsProvider>
-              {list.length !== 0 ? (
-                list.map((ele, index) => {
+              {newBooks.length !== 0 ? (
+                newBooks.map((product: Product) => {
+                  const imagePath = `${serverApi}/${product.productImages[0]}`;
+                  // product.productCollection === ProductCollection.CHILDREN
+                  //   ? product.productVolume + "l"
+                  //   : product.productSize + "size";
                   return (
-                    <Card key={index} variant="outlined" className={"card"}>
+                    <Card
+                      key={product._id}
+                      variant="outlined"
+                      className={"card"}
+                    >
                       <CardOverflow>
                         <AspectRatio ratio="1">
-                          <img src={ele.imagePath} alt="" className={"img"} />
+                          <img src={imagePath} alt="" className={"img"} />
                         </AspectRatio>
-                        <div className={"product-sale"}>Normal size</div>
-                        <div className={"product-sale"}>Add to Cart</div>
+                        <div className={"product-sale"}>
+                          {`${product.productSize}`}
+                        </div>
+                        <Button
+                          className={"product-sale"}
+                         
+                        >
+                          Add to Cart
+                        </Button>
                       </CardOverflow>
 
                       <CardOverflow variant="soft" className="product-detail">
                         <Stack className={"info"}>
                           <Stack className={"row"}>
                             <Typography className={"title"}>
-                              {ele.productName}
+                              {product.productName}
                             </Typography>
 
                             <Typography className={"title"}>
-                              Book Author
+                              {product.productAuthor}
                               <Typography className={"views"}>
                                 <TurnedInIcon
                                   sx={{ fontSize: 20, marginLeft: "5px" }}
@@ -57,23 +79,24 @@ export default function NewBooks() {
                             </Typography>
                             <Divider width="27" height="2" bg="#d9d9d9" />
                             <Typography className={"information"}>
-                              "Atomic Habits" shows how small, consistent
-                              changes lead to big
+                              {`${product.productDesc}`}
                             </Typography>
                           </Stack>
                         </Stack>
                         <Stack className={"small-info"}>
-                          <Typography className={"price"}>$12</Typography>
+                          <Typography className={"price"}>
+                            ${`${product.productPrice}`}
+                          </Typography>
                           <Divider width="27" height="2" bg="#d9d9d9" />
                           <Typography className={"views"}>
-                            10
+                            {`${product.productLikes}`}
                             <FavoriteIcon
                               sx={{ fontSize: 20, marginLeft: "5px" }}
                             />
                           </Typography>
                           <Divider width="27" height="2" bg="#d9d9d9" />
                           <Typography className={"views"}>
-                            20
+                            {`${product.productViews}`}
                             <VisibilityIcon
                               sx={{ fontSize: 20, marginLeft: "5px" }}
                             />

@@ -198,15 +198,15 @@
   flex-direction: column;
 }
 
-.user-page .settings .title{
-color: rgb(17, 17, 17);
-font-family: Prata;
-font-size: 48px;
-font-weight: 400;
-line-height: 65px;
-letter-spacing: 0%;
-text-align: center;
-text-transform: capitalize;
+.user-page .settings .title {
+  color: rgb(17, 17, 17);
+  font-family: Prata;
+  font-size: 48px;
+  font-weight: 400;
+  line-height: 65px;
+  letter-spacing: 0%;
+  text-align: center;
+  text-transform: capitalize;
 }
 
 .user-page .settings .input-frame {
@@ -349,15 +349,15 @@ text-transform: capitalize;
 }
 
 /**  ARTICLES **/
-.user-page .articles .title{
-color: rgb(17, 17, 17);
-font-family: Prata;
-font-size: 48px;
-font-weight: 400;
-line-height: 65px;
-letter-spacing: 0%;
-text-align: center;
-text-transform: capitalize;
+.user-page .articles .title {
+  color: rgb(17, 17, 17);
+  font-family: Prata;
+  font-size: 48px;
+  font-weight: 400;
+  line-height: 65px;
+  letter-spacing: 0%;
+  text-align: center;
+  text-transform: capitalize;
 }
 
 .user-page .articles .article-frame {
@@ -443,8 +443,25 @@ text-transform: capitalize;
   background: #f7f7f7;
 }
 
-.user-page .articles  .save {
-	display: flex;
-	justify-content: space-evenly;
+.user-page .articles .img-box {
+  width: auto;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 
+}
+
+.user-page .articles .img-box .mb-image {
+  width: 600px;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+}
+
+.user-page .articles .img-box .save {
+  display: flex;
+  justify-content: space-evenly;
 }

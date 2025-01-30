@@ -1,7 +1,7 @@
 /* HomeNavbar */
 .home-navbar {
   width: 100%;
-  height: 780px;
+  height: 735px;
   display: flex;
 
   background: rgb(243, 242, 236);
@@ -230,7 +230,7 @@
 /* OtherNavbar */
 .other-navbar {
   width: 100%;
-  height: 400px;
+  height: 150px;
   display: flex;
   /* background: url("/public/img/banner.webp"); */
   background: rgb(243, 242, 236);

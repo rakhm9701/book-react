@@ -1,34 +1,33 @@
 import TabPanel from "@mui/lab/TabPanel";
-import { Box, Stack } from "@mui/material";
-import { useSelector } from "react-redux";
+import { Box, Button, Stack } from "@mui/material";
 import { createSelector } from "reselect";
+import { useSelector } from "react-redux";
 import { retrieveFinishedOrders } from "./selecter";
-import { serverApi } from "../../../lib/config";
 import { Order, OrderItem } from "../../../lib/types/order";
 import { Product } from "../../../lib/types/product";
+import { serverApi } from "../../../lib/config";
 
-//** REDUX SLICE & SELECTOR **//
-const finishedOrdersRetriever = createSelector(
+const FinishedOrdersRetrieve = createSelector(
   retrieveFinishedOrders,
   (finishedOrders) => ({ finishedOrders })
 );
 
-// FinishedOrders function
-export default function FinishedOrders() {
-  const { finishedOrders } = useSelector(finishedOrdersRetriever);
+export default function Finished() {
+  const { finishedOrders } = useSelector(FinishedOrdersRetrieve);
 
   return (
     <TabPanel sx={{ padding: 0 }} value={"3"}>
       <Stack className="finished-order">
-        {finishedOrders?.map((order: Order) => {
+        {finishedOrders.map((order: Order) => {
           return (
             <Box className="order-main" key={order._id}>
               <Box className="order-box">
-                {order?.orderItems?.map((item: OrderItem) => {
+                {order.orderItems.map((item: OrderItem) => {
                   const product: Product = order.productData.filter(
                     (ele: Product) => item.productId === ele._id
                   )[0];
                   const imagePath = `${serverApi}/${product.productImages[0]}`;
+
                   return (
                     <Box className="order-one" key={item._id}>
                       <Box className="order-name">
@@ -45,7 +44,6 @@ export default function FinishedOrders() {
                           style={{ marginRight: "2px" }}
                         />
                         <p style={{ marginRight: "2px" }}>
-                          {" "}
                           {item.itemQuantity}
                         </p>
                         <img
@@ -55,7 +53,7 @@ export default function FinishedOrders() {
                           alt=""
                           style={{ marginRight: "2px" }}
                         />
-                        <p>$ {item.itemQuantity * item.itemPrice}</p>
+                        <p>${item.itemQuantity * item.itemPrice}</p>
                       </Box>
                     </Box>
                   );
@@ -65,7 +63,6 @@ export default function FinishedOrders() {
                 <Box className="order-total-box">
                   <p style={{ marginRight: "13px" }}>Product price</p>
                   <p style={{ marginRight: "13px" }}>
-                    {" "}
                     ${order.orderTotal - order.orderDelivery}
                   </p>
                   <img
@@ -91,18 +88,18 @@ export default function FinishedOrders() {
             </Box>
           );
         })}
-
-        {/* IF NOT EXIST */}
-        {!FinishedOrders ||
-          (FinishedOrders.length === 0 && (
+        {!finishedOrders ||
+          (finishedOrders.length === 0 && (
             <Box
               display={"flex"}
               flexDirection={"row"}
               justifyContent={"center"}
+              alignItems={"center"}
             >
               <img
-                src={"/icons/noimage-list.svg"}
-                style={{ width: 300, height: 300 }}
+                src="/icons/noimage-list.svg"
+                alt=""
+                style={{ width: "300px", height: "300px" }}
               />
             </Box>
           ))}

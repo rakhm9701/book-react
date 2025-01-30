@@ -7,41 +7,37 @@ import Typography from "@mui/joy/Typography";
 import { CssVarsProvider } from "@mui/joy/styles";
 import CardOverflow from "@mui/joy/CardOverflow";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import Divider from "../../components/divider";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import TurnedInIcon from "@mui/icons-material/TurnedIn";
+import { useSelector } from "react-redux";
+import { createSelector } from "reselect";
+import { retrieveBestSellers } from "./selector";
+import { Product } from "../../../lib/types/product";
+import { serverApi } from "../../../lib/config";
 
-const list = [
-  { productName: "Automic Habbit", imagePath: "/img/atomicH.jpeg" },
-  { productName: "Deep Work", imagePath: "/img/deep_work.jpeg" },
-  { productName: "Self Improve", imagePath: "/img/test.webp" },
-  { productName: "Biography", imagePath: "/img/test2.webp" },
-  { productName: "Automic Habbit", imagePath: "/img/Atomic.jpeg" },
-  { productName: "Deep Work", imagePath: "/img/deep_work_A.jpeg" },
-  { productName: "Automic Habbit", imagePath: "/img/Atomic.jpeg" },
-  { productName: "Deep Work", imagePath: "/img/deep_work_A.jpeg" },
-  { productName: "Automic Habbit", imagePath: "/img/Atomic.jpeg" },
-];
+//** REDUX SLICE & SELECTOR **//
+const bestSellersRetriever = createSelector(
+  retrieveBestSellers,
+  (bestSellers) => ({ bestSellers })
+);
 
 export default function PopularBooks() {
+  const { bestSellers } = useSelector(bestSellersRetriever);
+
   return (
     <div className={"popular-dishes-frame"}>
       <Container>
         <Stack className={"popular-section"}>
           <Box className={"category-title"}>This Month BestSellers</Box>
           <Stack className={"cards-frame"}>
-            {list.length !== 0 ? (
-              list.map((ele, index) => {
+            {bestSellers.length !== 0 ? (
+              bestSellers.map((product: Product) => {
+                const imagePath = `${serverApi}/${product.productImages[0]}`;
                 return (
-                  <CssVarsProvider key={index}>
+                  <CssVarsProvider key={product._id}>
                     <Card className={"card"}>
                       <CardCover>
-                        <img
-                          src={ele.imagePath}
-                          alt=""
-                          className={"card-img"}
-                        />
+                        <img src={imagePath} alt="" className={"card-img"} />
                       </CardCover>
                       <CardCover className={"card-cover"} />
                       <CardContent
@@ -61,12 +57,12 @@ export default function PopularBooks() {
                       >
                         <Typography
                           className={"name"}
-                          level="h3"
+                          level="h4"
                           font-size="lg"
                           textColor="#fff"
                           mb={1}
                         >
-                          {ele.productName}
+                          {product.productName}
                         </Typography>
                         <Divider width="27" height="2" bg="#d9d9d9" />
 
@@ -74,23 +70,23 @@ export default function PopularBooks() {
                           className={"author"}
                           textColor="neutral.300"
                         >
-                          Lois Lowrey
+                          {product.productAuthor}
                         </Typography>
                         <Divider width="27" height="2" bg="#d9d9d9" />
 
                         <Typography className={"price"} textColor="neutral.300">
-                          from $3.99
+                          ${product.productPrice}
                         </Typography>
                         <Divider width="27" height="2" bg="#d9d9d9" />
                         <Stack className={"view"}>
                           <Typography className={"views"}>
-                            10
+                            {product.productLikes}
                             <FavoriteIcon
                               sx={{ fontSize: 20, marginLeft: "5px" }}
                             />
                           </Typography>
                           <Typography className={"views"}>
-                            20
+                            {product.productViews}
                             <VisibilityIcon
                               sx={{ fontSize: 20, marginLeft: "5px" }}
                             />

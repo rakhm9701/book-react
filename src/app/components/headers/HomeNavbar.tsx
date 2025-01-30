@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -46,6 +46,11 @@ export default function HomeNavbar(props: HomeNavbarPorps) {
     handleLogoutRequest,
   } = props;
   const { authMember } = useGlobals();
+  const [memberImage, setMemberImage] = useState<string>(
+    authMember?.memberImage
+      ? `${serverApi}/${authMember.memberImage} `
+      : "/icons/default-user.svg"
+  );
 
   /** HANDLERS **/
 
@@ -114,11 +119,7 @@ export default function HomeNavbar(props: HomeNavbarPorps) {
             ) : (
               <img
                 className={"user-avatar"}
-                src={
-                  authMember?.memberImage
-                    ? `${serverApi}/{authMember?.memberImage}`
-                    : "/icons/default-user.svg"
-                }
+                src={memberImage}
                 aria-haspopup={"true"}
                 onClick={handleLogoutClick}
               />

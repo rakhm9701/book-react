@@ -2,7 +2,6 @@ import axios from "axios";
 import { serverApi } from "../../lib/config";
 import { Product, ProductInQuery } from "../../lib/types/product";
 
-
 class ProductService {
   private readonly path: string;
 
@@ -42,7 +41,18 @@ class ProductService {
     }
   }
 
-  
+  // getLikes
+  public async getlikes(productId: string): Promise<Product> {
+    try {
+      const url = `${this.path}/product/like/${productId}`;
+      const result = await axios.get(url, { withCredentials: true });
+
+      return result.data;
+    } catch (err) {
+      console.log("Error, getLikes:", err);
+      throw err;
+    }
+  }
 }
 
 export default ProductService;

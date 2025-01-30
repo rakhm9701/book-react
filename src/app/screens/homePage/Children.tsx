@@ -7,17 +7,19 @@ import Typography from "@mui/joy/Typography";
 import { CssVarsProvider } from "@mui/joy/styles";
 import CardOverflow from "@mui/joy/CardOverflow";
 
+import { useSelector } from "react-redux";
+import { createSelector } from "reselect";
+import { retrieveKidsBooks } from "./selector";
+import { Product } from "../../../lib/types/product";
+import { serverApi } from "../../../lib/config";
 
-const list = [
-  { productName: "Automic Habbit", imagePath: "/img/child1.jpeg" },
-  { productName: "Deep Work", imagePath: "/img/child2.jpeg" },
-  { productName: "Self Improve", imagePath: "/img/child3.jpeg" },
-  { productName: "Biography", imagePath: "/img/child4.jpeg" },
-  { productName: "Automic Habbit", imagePath: "/img/child5.jpeg" },
-  { productName: "Deep Work", imagePath: "/img/child2.jpeg" },
-];
+//** REDUX SLICE & SELECTOR **//
+const kidsBooksRetriever = createSelector(retrieveKidsBooks, (kidsBooks) => ({
+  kidsBooks,
+}));
 
 export default function Children() {
+  const { kidsBooks } = useSelector(kidsBooksRetriever);
   return (
     <div className={"popular-children-frame"}>
       <Container>
@@ -25,29 +27,27 @@ export default function Children() {
           <Box className={"category-title"}>Kids BestSellers</Box>
 
           <Stack className={"cards-frame"}>
-            {list.length !== 0 ? (
-              list.map((ele, index) => {
+            {kidsBooks.length !== 0 ? (
+              kidsBooks.map((product: Product) => {
+                const imagePath = `${serverApi}/${product.productImages[0]}`;
+                const priceCals = Math.floor(product.productPrice * 1.3)
                 return (
-                  <CssVarsProvider key={index}>
+                  <CssVarsProvider key={product._id}>
                     <Card className={"card"}>
                       <CardCover>
-                        <img
-                          src={ele.imagePath}
-                          alt=""
-                          className={"card-img"}
-                        />
+                        <img src={imagePath} alt="" className={"card-img"} />
                       </CardCover>
                       <CardCover className={"card-cover"} />
                       <CardContent sx={{ justifyContent: "flex-end" }}>
                         <Stack
-                          flexDirection={"column"}
+                          flexDirection={"row"}
                           justifyContent={"space-between"}
                         >
-                          <Typography textColor="neutral.300">
-                            $5.99 old price
+                          <Typography textColor="neutral.300" sx={{textDecoration: "line-through"}}>
+                           ${priceCals}
                           </Typography>
-                          <Typography textColor="neutral.300">
-                            from $3.99
+                          <Typography textColor="neutral.300" marginLeft={"60px"}>
+                            ${product.productPrice}
                           </Typography>
                         </Stack>
                       </CardContent>
@@ -62,7 +62,7 @@ export default function Children() {
                         }}
                       >
                         <Typography textColor="neutral.300">
-                          Lois Lowrey
+                          {product.productAuthor}
                         </Typography>
                         <Typography
                           level="h4"
@@ -70,7 +70,7 @@ export default function Children() {
                           textColor="#fff"
                           mb={1}
                         >
-                          {ele.productName}
+                          {product.productName}
                         </Typography>
                       </CardOverflow>
                     </Card>
@@ -81,8 +81,6 @@ export default function Children() {
               <Box className="no-data"> New product are not available! </Box>
             )}
           </Stack>
-
-         
         </Stack>
       </Container>
     </div>

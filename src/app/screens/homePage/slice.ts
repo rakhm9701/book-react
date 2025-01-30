@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { HomePageState } from "../../../lib/types/screen";
 
-
 const initialState: HomePageState = {
   bestSellers: [],
-  newDishes: [],
+  kidsBooks: [],
+  newBooks: [],
   topUsers: [],
 };
 
@@ -15,8 +15,11 @@ const homePageSlice = createSlice({
     setBestSellers: (state, action) => {
       state.bestSellers = action.payload;
     },
-    setNewDishes: (state, action) => {
-      state.newDishes = action.payload;
+    setKidsBooks: (state, action) => {
+      state.kidsBooks = action.payload;
+    },
+    setNewBooks: (state, action) => {
+      state.newBooks = action.payload;
     },
     setTopUsers: (state, action) => {
       state.topUsers = action.payload;
@@ -24,8 +27,8 @@ const homePageSlice = createSlice({
   },
 });
 
-export const { setBestSellers, setNewDishes, setTopUsers } =
+export const { setBestSellers, setKidsBooks, setNewBooks, setTopUsers } =
   homePageSlice.actions;
 
-  const HomePageReducer = homePageSlice.reducer;
-  export default HomePageReducer
+const HomePageReducer = homePageSlice.reducer;
+export default HomePageReducer;

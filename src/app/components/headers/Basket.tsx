@@ -12,6 +12,7 @@ import { Messages, serverApi } from "../../../lib/config";
 import { sweetErrorHandling } from "../../../lib/sweetAlert";
 import { useGlobals } from "../../hooks/useGlobals";
 import OrderService from "../../services/OrderService";
+import Rating from "@mui/material/Rating";
 
 interface BasketProps {
   cartItems: CartItem[];
@@ -119,18 +120,15 @@ export default function Basket(props: BasketProps) {
         <Stack className={"basket-frame"}>
           <Box className={"all-check-box"}>
             {cartItems.length === 0 ? (
-              <div className={"empty"}>Cart is still empty!</div>
+              <div>Cart is empty!</div>
             ) : (
-              <Stack className={"card"}>
-                <div>Your Cart :</div>
-                <Box className={"delete"}>
-                  <div>Delete All</div>
-                  <DeleteForeverIcon
-                    sx={{ marginLeft: "5px", cursor: "pointer" }}
-                    color={"primary"}
-                    onClick={() => onDeleteAll()}
-                  />
-                </Box>
+              <Stack flexDirection={"row"}>
+                <div>Cart Products:</div>
+                <DeleteForeverIcon
+                  sx={{ marginLeft: "5px", cursor: "pointer" }}
+                  color={"primary"}
+                  onClick={() => onDeleteAll()}
+                />
               </Stack>
             )}
           </Box>
@@ -146,10 +144,14 @@ export default function Basket(props: BasketProps) {
                         color={"primary"}
                         onClick={() => onDelete(item)}
                       />
-                      remove
                     </div>
                     <img src={imagePath} className={"product-img"} />
                     <span className={"product-name"}>{item.name}</span>
+                    <Rating
+                      name="half-rating"
+                      defaultValue={2.5}
+                      precision={0.5}
+                    />
                     <p className={"product-price"}>
                       ${item.price} x {item.quantity}
                     </p>
@@ -179,8 +181,7 @@ export default function Basket(props: BasketProps) {
               <Button
                 onClick={procceedOrderHandler}
                 startIcon={<ShoppingCartIcon />}
-                variant={"outlined"}
-                color="error"
+                variant={"contained"}
               >
                 Order
               </Button>

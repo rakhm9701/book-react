@@ -72,7 +72,7 @@ export function Atricles() {
       const result = await member.updateMember(memberUpdateInput);
       setAuthMember(result);
 
-      await sweetTopSmallSuccessAlert("Modify succed", 700);
+      await sweetTopSmallSuccessAlert("Added New Article", 700);
     } catch (err) {
       console.log(err);
       sweetErrorHandling(err).then();
@@ -99,7 +99,7 @@ export function Atricles() {
 
   return (
     <Box className={"articles"}>
-        <Box className={"title"}>Create Article</Box>
+      <Box className={"title"}>Create Article</Box>
       <Card className={"article-frame"}>
         <Stack className={"article"}>
           <Box className={"short-frame"}>
@@ -108,9 +108,8 @@ export function Atricles() {
               <input
                 className={"spec-label mb-nick"}
                 type="text"
-                placeholder={authMember?.memberNick}
-                value={memberUpdateInput.memberNick}
-                name="memberNick"
+                placeholder={"Article category"}
+                name="Article category"
                 onChange={memebrNickHandler}
               />
             </div>
@@ -121,8 +120,7 @@ export function Atricles() {
               <input
                 className={"spec-input mb-phone"}
                 type="text"
-                placeholder={authMember?.memberPhone ?? "no phone"}
-                value={memberUpdateInput.memberPhone}
+                placeholder={"Write Title here"}
                 name="memberPhone"
                 onChange={memebrPhoneHandler}
               />
@@ -132,12 +130,7 @@ export function Atricles() {
               <input
                 className={"spec-input  mb-address"}
                 type="text"
-                placeholder={
-                  authMember?.memberAddress
-                    ? authMember.memberAddress
-                    : "no address"
-                }
-                value={memberUpdateInput.memberAddress}
+                placeholder={"Time"}
                 name="memberAddress"
                 onChange={memebrAddressHandler}
               />
@@ -148,12 +141,7 @@ export function Atricles() {
               <label className={"spec-label"}>Content:</label>
               <textarea
                 className={"spec-textarea mb-description"}
-                placeholder={
-                  authMember?.memberDesc
-                    ? authMember.memberDesc
-                    : "no decribtion"
-                }
-                value={memberUpdateInput.memberDesc}
+                placeholder={""}
                 name="memberDesc"
                 onChange={memebrDescHandler}
               />
@@ -161,19 +149,22 @@ export function Atricles() {
           </Box>
         </Stack>
         <Box className={"img-box"}>
-          <img src={memberImage} className={"mb-image"} />
+          <img src={memberImage?  "/img/adventure.jpg" :  "/icons/default-user.svg"} className={"mb-image"} />
           <div className={"media-change-box"}>
             <span>Upload image</span>
             <p>JPG, JPEG, PNG formats only!</p>
             <div className={"up-del-box"}>
-              <Button className="save" component="label" onChange={handleImageViewer}>
+              <Button
+                className="save"
+                component="label"
+                onChange={handleImageViewer}
+              >
                 <CloudDownloadIcon />
                 <input type="file" hidden />
                 <Button variant={"outlined"} onClick={handleSubmitButtun}>
                   Save
                 </Button>
               </Button>
-             
             </div>
           </div>
         </Box>

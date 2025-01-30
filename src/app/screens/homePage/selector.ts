@@ -6,9 +6,14 @@ export const retrieveBestSellers = createSelector(
   (HomePage: HomePageState) => HomePage.bestSellers
 );
 
-export const retrieveNewDishes = createSelector(
+export const retrieveKidsBooks = createSelector(
   (state: AppRootsState) => state.homePage,
-  (HomePage: HomePageState) => HomePage.newDishes
+  (HomePage: HomePageState) => HomePage.kidsBooks
+);
+
+export const retrieveNewBooks = createSelector(
+  (state: AppRootsState) => state.homePage,
+  (HomePage: HomePageState) => HomePage.newBooks
 );
 
 export const retrieveTopUsers = createSelector(

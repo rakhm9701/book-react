@@ -9,6 +9,7 @@ import { useGlobals } from "../../hooks/useGlobals";
 import { MemberType } from "../../../lib/enums/member.enum";
 import "../../../css/myPage.css";
 import { Atricles } from "./Articles";
+import { serverApi } from "../../../lib/config";
 
 
 // UserPage function
@@ -26,7 +27,7 @@ export default function UserPage() {
               <Box className={"menu-name"}>Modify Member Details</Box>
               <Box className={"menu-content"}>
                 <Settings />
-               
+
                 <Atricles />
               </Box>
             </Box>
@@ -43,7 +44,7 @@ export default function UserPage() {
                   <img
                     src={
                       authMember?.memberImage
-                        ? authMember.memberImage
+                        ? `${serverApi}/${authMember.memberImage} `
                         : "/icons/default-user.svg"
                     }
                     className={"order-user-avatar"}
@@ -51,7 +52,7 @@ export default function UserPage() {
                   <div className={"order-user-icon-box"}>
                     <img
                       src={
-                        authMember?.memberType === MemberType.RESTAURANT
+                        authMember?.memberType === MemberType.ADMIN
                           ? "/icons/restaurant.svg"
                           : "/icons/user-badge.svg"
                       }
