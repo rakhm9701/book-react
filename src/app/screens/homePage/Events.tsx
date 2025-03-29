@@ -10,6 +10,7 @@ const list = [
     productName: "Automic Habbit",
     ProductType: "Humur",
     imagePath: "/img/events1.avif",
+    
   },
   {
     productName: "Self Improve",

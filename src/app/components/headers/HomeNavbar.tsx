@@ -14,8 +14,6 @@ import { CartItem } from "../../../lib/types/search";
 import { useGlobals } from "../../hooks/useGlobals";
 import { serverApi } from "../../../lib/config";
 import { Logout } from "@mui/icons-material";
-import SearchIcon from "@mui/icons-material/Search";
-import Typography from "@mui/joy/Typography";
 
 interface HomeNavbarPorps {
   cartItems: CartItem[];
@@ -60,7 +58,7 @@ export default function HomeNavbar(props: HomeNavbarPorps) {
         <Stack className={"menu"}>
           <Box>
             <NavLink to={"/"}>
-              <img className={"brand-logo"} src="/icons/booksaw.svg" />
+              <img className={"brand-logo"} src="/icons/booksaw.svg" alt="" />
             </NavLink>
           </Box>
           <Stack>

@@ -21,7 +21,7 @@ export default function Footer() {
         <Stack flexDirection={"row"} sx={{ mt: "94px" }}>
           <Stack flexDirection={"column"} style={{ width: "340px" }}>
             <Box>
-              <img width={"100px"} src={"/icons/booksaw.svg"} />
+              <img width={"100px"} src={"/icons/booksaw.svg"} alt="" />
             </Box>
             <Box className={"foot-desc-txt"}>
               THE BOOK DISCUSSES THE CHANGES IN SOCIETY AND THE WAY YOUNG PEOPLE
@@ -30,10 +30,10 @@ export default function Footer() {
               NEW GENERATION.
             </Box>
             <Box className="sns-context">
-              <img src={"/icons/facebook.svg"} />
-              <img src={"/icons/twitter.svg"} />
-              <img src={"/icons/instagram.svg"} />
-              <img src={"/icons/youtube.svg"} />
+              <img src={"/icons/facebook.svg"} alt="" />
+              <img src={"/icons/twitter.svg"} alt="" />
+              <img src={"/icons/instagram.svg"} alt="" />
+              <img src={"/icons/youtube.svg"} alt="" />
             </Box>
           </Stack>
           <Stack sx={{ ml: "288px" }} flexDirection={"row"}>
