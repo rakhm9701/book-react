@@ -19,7 +19,6 @@ import ProductService from "../../services/ProductService";
 import { ProductCollection } from "../../../lib/enums/product.enum";
 import MemberService from "../../services/MemberService";
 import { Member } from "../../../lib/types/member";
-import Articles from "./Article";
 import "../../../css/home.css";
 import { CartItem } from "../../../lib/types/search";
 import { Route } from "react-router-dom";
@@ -96,7 +95,6 @@ export default function HomePage(props: ProductsPageProps) {
       <Advertisement />
       <ActiveUsers />
       <Events />
-      <Articles />
     </div>
   );
 }

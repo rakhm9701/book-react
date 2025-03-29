@@ -8,7 +8,6 @@ import { useHistory } from "react-router-dom";
 import { useGlobals } from "../../hooks/useGlobals";
 import { MemberType } from "../../../lib/enums/member.enum";
 import "../../../css/myPage.css";
-import { Atricles } from "./Articles";
 import { serverApi } from "../../../lib/config";
 
 
@@ -27,8 +26,6 @@ export default function UserPage() {
               <Box className={"menu-name"}>Modify Member Details</Box>
               <Box className={"menu-content"}>
                 <Settings />
-
-                <Atricles />
               </Box>
             </Box>
           </Stack>
@@ -47,6 +44,7 @@ export default function UserPage() {
                         ? `${serverApi}/${authMember.memberImage} `
                         : "/icons/default-user.svg"
                     }
+                    alt=""
                     className={"order-user-avatar"}
                   />
                   <div className={"order-user-icon-box"}>
@@ -56,6 +54,7 @@ export default function UserPage() {
                           ? "/icons/restaurant.svg"
                           : "/icons/user-badge.svg"
                       }
+                      alt=""
                     />
                   </div>
                 </div>
