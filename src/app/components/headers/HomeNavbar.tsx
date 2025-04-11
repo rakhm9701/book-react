@@ -58,7 +58,7 @@ export default function HomeNavbar(props: HomeNavbarPorps) {
         <Stack className={"menu"}>
           <Box>
             <NavLink to={"/"}>
-              <img className={"brand-logo"} src="/icons/booksaw.svg" alt="" />
+              <img className={"brand-logo"} src="/icons/Booksaw.svg" alt="" />
             </NavLink>
           </Box>
           <Stack>
